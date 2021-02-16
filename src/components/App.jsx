@@ -1,21 +1,19 @@
 import React, { useState } from "react";
 import ToDoItem from "./ToDoItem";
-import InputComp from "./InputText";
+import InputArea from "./InputArea";
 
 function App() {
-  
   const [items, setItems] = useState([]);
 
   function addItem(inputText) {
     setItems((prevItems) => {
-      return inputText === "" ? [...prevItems] : [...prevItems, inputText];
+      return [...prevItems, inputText];
     });
-    
   }
 
   function deleteItem(id) {
-    setItems((prev) => {
-      return prev.filter((item, index) => {
+    setItems((prevItems) => {
+      return prevItems.filter((item, index) => {
         return index !== id;
       });
     });
@@ -26,17 +24,15 @@ function App() {
       <div className="heading">
         <h1>To-Do List</h1>
       </div>
-      <InputComp 
-      onClicked={addItem}
-      />
+      <InputArea onPress={addItem} />
       <div>
         <ul>
           {items.map((todoItem, index) => (
             <ToDoItem
               key={index}
               id={index}
-              item={todoItem}
-              onchecked={deleteItem}
+              text={todoItem}
+              onChecked={deleteItem}
             />
           ))}
         </ul>
